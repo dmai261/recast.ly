@@ -1,5 +1,4 @@
-var App = () => {
-return(
+var App = () => (
   <div>
     <nav className="navbar">
       <div className="col-md-6 offset-md-3">
@@ -15,8 +14,7 @@ return(
       </div>
     </div>
   </div>
-)
-};
+);
 
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
