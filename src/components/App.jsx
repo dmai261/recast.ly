@@ -7,7 +7,7 @@ class App extends React.Component {
     this.state = {
       mainPlayerVideo: fakeVideoData[0],
       listVideo: exampleVideoData,
-      inputVal: ''
+      inputVal: 'horse'
     };
   }
   
@@ -38,8 +38,12 @@ class App extends React.Component {
 
   onChangeHandler(e) {
     this.setState({
-      inputVal: e.target.value
+      inputVal: e
     });
+  }
+
+  onSearchClick() {
+    this.grabNewVids(this.state.inputVal);
   }
 
   render() {
@@ -47,7 +51,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><em><Search searchInput = {this.onChangeHandler.bind(this)}/></em></div>
+            <div><em><Search onChange = {this.onChangeHandler.bind(this)} searchClick = {this.onSearchClick.bind(this)}/></em></div>
           </div>
         </nav>
         <div className="row">
