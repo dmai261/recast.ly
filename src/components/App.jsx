@@ -1,33 +1,61 @@
+// window.searchYouTube(
+//         {q: 'dogs', key: YOUTUBE_API_KEY, max: 5},
+//         (data) => { this.state.listVideo = data; }
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       mainPlayerVideo: fakeVideoData[0],
       listVideo: exampleVideoData,
+      inputVal: ''
     };
   }
+  
+  componentDidMount() {
+    this.grabNewVids('donkey');
+  }
 
+  grabNewVids(query) {
+    var options = {
+      query: query,
+      key: window.YOUTUBE_API_KEY,
+    };
+
+    this.props.searchYouTube(options, (data) => {
+      this.setState({
+        mainPlayerVideo: data[0],
+        listVideo: data
+      });
+    });
+  }
+  
   onVideoClick(video) {
     this.setState({
       mainPlayerVideo: video,
     });
 
   }
+
+  onChangeHandler(e) {
+    this.setState({
+      inputVal: e.target.value
+    });
+  }
+
   render() {
-    //console.log(this.state.mainPlayerVideo);
     return (  
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search /><h5><em></em></h5></div>
+            <div><em><Search searchInput = {this.onChangeHandler.bind(this)}/></em></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em></em> <VideoPlayer video = {this.state.mainPlayerVideo}/></h5></div>
+            <div><em></em> <VideoPlayer video = {this.state.mainPlayerVideo}/></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em></em> <VideoList videoClick = {this.onVideoClick.bind(this)} videos={this.state.listVideo}/> </h5></div>
+            <div><em></em> <VideoList videoClick = {this.onVideoClick.bind(this)} videos={this.state.listVideo}/></div>
           </div>
         </div>
       </div>
